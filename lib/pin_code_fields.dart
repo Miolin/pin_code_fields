@@ -61,6 +61,8 @@ class PinCodeTextField extends StatefulWidget {
 
   /// Enable or disable the Field. Default is [true]
   final bool enabled;
+  
+  final bool enabledLongPress;
 
   /// [TextEditingController] to control the text manually. Sets a default [TextEditingController()] object if none given
   final TextEditingController controller;
@@ -114,6 +116,7 @@ class PinCodeTextField extends StatefulWidget {
     this.autoFocus = false,
     this.focusNode,
     this.enabled = true,
+    this.enabledLongPress = false,
     this.inputFormatters = const <TextInputFormatter>[],
     this.textStyle = const TextStyle(
       fontSize: 20,
@@ -440,7 +443,7 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
           ),
           GestureDetector(
             onTap: _onFocus,
-            onLongPress: widget.enabled
+            onLongPress: widget.enabled && widget.enabledLongPress
                 ? () async {
                     var data = await Clipboard.getData("text/plain");
                     if (data?.text?.isNotEmpty ?? false) {
